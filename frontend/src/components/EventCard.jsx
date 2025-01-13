@@ -15,6 +15,7 @@ const EventCard = ({
 	isDeleting,
 }) => {
 	const authUser = useAuth();
+	const [loading, setLoading] = useState(false);
 
 	const token = localStorage.getItem("token");
 	let currentUser = authUser || JSON.parse(localStorage.getItem("user")) || {};
@@ -50,6 +51,7 @@ const EventCard = ({
 			);
 			return;
 		}
+		setLoading(true);
 		try {
 			const response = await axiosInstance.post(
 				`/api/event/attend/${eventId}`,
@@ -64,6 +66,8 @@ const EventCard = ({
 			fetchAllEvents();
 		} catch (error) {
 			toast.error(error.response?.data?.message || "Failed to attend event");
+		} finally {
+			setLoading(false);
 		}
 	};
 
@@ -144,7 +148,9 @@ const EventCard = ({
 										: "bg-emerald-600 hover:bg-emerald-500"
 								}`}
 							>
-								{isUserJoined ? "Event Joined" : `Attend Event`}
+								{isUserJoined
+									? "Event Joined"
+									: `${loading ? "joining...." : "Attend Event"}`}
 							</button>
 						</div>
 					)}
