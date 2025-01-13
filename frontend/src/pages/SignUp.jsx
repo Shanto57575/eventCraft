@@ -133,10 +133,10 @@ const SignUp = () => {
 										"Password should contain:\n at least one uppercase letter\n, one lowercase letter\n, one number\n, one special character\n, and no spaces",
 								},
 							})}
-							className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+							className="shadow appearance-none border rounded w-full py-2 px-3 mb-3 leading-tight focus:outline-none focus:shadow-outline"
 							id="password"
 							type="password"
-							placeholder="******************"
+							placeholder="password"
 						/>
 						{errors.password && (
 							<span className="text-rose-600 my-1.5">
@@ -148,7 +148,7 @@ const SignUp = () => {
 						<button
 							disabled={loading}
 							type="submit"
-							className="border cursor-pointer hover:bg-slate-700 duration-300 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+							className="w-full border cursor-pointer hover:bg-white hover:text-black duration-300 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
 						>
 							{loading ? "Signing Up...." : "Sign Up"}
 						</button>

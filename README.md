@@ -183,7 +183,9 @@ CLOUDINARY_API_SECRET=<Your Cloudinary API Secret>
 
 ## Test User Credentials
 
-For easy evaluation, use the following test credentials:
+`Email` : test@gmail.com
+
+`password` : Test@123
 
 ## Deployment Steps
 
