@@ -64,7 +64,6 @@ const getAllEvents = async (req, res) => {
         const events = await Event.find(filterQuery)
             .populate('createdBy', 'name email')
             .populate('attendees', 'name email')
-            .sort({ date: 1 });
 
         res.status(200).json({
             events,
