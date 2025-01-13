@@ -71,7 +71,7 @@ const FilterSidebar = ({
 
 			<aside
 				ref={sidebarRef}
-				className={`fixed md:sticky top-0 left-0 min-h-screen lg:min-h-fit w-52 md:w-64 lg:w-72 bg-black border rounded-lg shadow-lg transform transition-transform duration-300 ease-in-out z-40 
+				className={`fixed mt-14 md:sticky top-0 left-0 min-h-screen lg:min-h-fit w-52 md:w-64 lg:w-72 bg-black border rounded-lg shadow-lg transform transition-transform duration-300 ease-in-out z-40 
         ${
 					isSidebarOpen ? "translate-x-0" : "-translate-x-full"
 				} md:translate-x-0`}
