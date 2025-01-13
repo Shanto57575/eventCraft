@@ -1,23 +1,38 @@
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { io } from "socket.io-client";
 import { UserRound } from "lucide-react";
 import toast from "react-hot-toast";
+import axiosInstance from "../utils/axios";
 
 const socket = io(import.meta.env.VITE_BACKEND_URL);
 
 const EventParticipants = () => {
-	const location = useLocation();
-	const [participants, setParticipants] = useState(
-		location.state?.attendees || []
-	);
+	const { id } = useParams();
+	const [participants, setParticipants] = useState([]);
+	const [eventId, setEventId] = useState("");
+
+	const fetchAttendees = async () => {
+		try {
+			const apiResponse = await axiosInstance.get(`/api/event/${id}`);
+			setParticipants(apiResponse?.data?.event?.attendees || []);
+			setEventId(apiResponse?.data?.event?._id);
+		} catch (error) {
+			console.log(error);
+			toast.error("Failed to fetch participants");
+		}
+	};
 
 	useEffect(() => {
-		if (location.state?.eventId) {
-			socket.emit("joinEvent", location.state.eventId);
+		fetchAttendees();
+	}, [id]);
+
+	useEffect(() => {
+		if (eventId) {
+			socket.emit("joinEvent", eventId);
 
 			socket.on("attendeeUpdate", (data) => {
-				if (data.eventId === location.state.eventId) {
+				if (data.eventId === eventId) {
 					const newParticipant = data.attendees[data.attendees.length - 1];
 
 					if (data.attendees.length > participants.length) {
@@ -33,12 +48,12 @@ const EventParticipants = () => {
 		}
 
 		return () => {
-			if (location.state?.eventId) {
-				socket.emit("leaveEvent", location.state.eventId);
+			if (eventId) {
+				socket.emit("leaveEvent", eventId);
 				socket.off("attendeeUpdate");
 			}
 		};
-	}, [location.state?.eventId, participants.length]);
+	}, [eventId, participants.length]);
 
 	return (
 		<div className="max-w-4xl mx-auto">

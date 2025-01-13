@@ -156,8 +156,7 @@ const EventCard = ({
 					)}
 					<Link
 						className="border bg-blue-600 block text-center mt-3 text-white px-2 py-1.5 rounded-lg hover:bg-white hover:border hover:border-blue-600 hover:text-blue-600 duration-300"
-						state={{ attendees: event.attendees, eventId: event._id }}
-						to="/event-participants"
+						to={`/event-participants/${event._id}`}
 					>
 						Check Other Participants
 					</Link>

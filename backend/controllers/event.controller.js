@@ -168,7 +168,7 @@ const attendEvent = async (req, res) => {
         const userId = req.user._id;
 
         const event = await Event.findById(eventId)
-            .populate('attendees', 'name email'); // Populate attendee details
+            .populate('attendees', 'name email');
 
         if (!event) {
             return res.status(404).json({ message: "Event not found" });
